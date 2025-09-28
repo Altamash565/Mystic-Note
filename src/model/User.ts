@@ -28,7 +28,7 @@ export interface User extends Document{
     isVerified: boolean;
     isAcceptingMessage: boolean;
     message: Message[]
-
+    
 }
 
 const UserSchema: Schema<User> = new Schema({
