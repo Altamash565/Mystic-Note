@@ -1,6 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { success, z } from "zod";
+import z from "zod";
 import { usernameValidation } from "@/schemas/signUpSchema";
 
 const UsernameQuerySchema = z.object({
@@ -13,12 +13,13 @@ export async function GET(request: Request) {
 
   try {
     const { searchParams } = new URL(request.url);
-    const queryParam = {
-      username: searchParams.get("username"),
+    const queryParams = {
+      username: searchParams.get('username'),
     };
+
     //validate with zod
-    const result = UsernameQuerySchema.safeParse(queryParam);
-    console.log(result); //TODO: remove
+    const result = UsernameQuerySchema.safeParse(queryParams);
+    // console.log(result); //TODO: remove
     if (!result.success) {
       const usernameErrors = result.error.format().username?._errors || [];
       return Response.json(
@@ -46,7 +47,7 @@ export async function GET(request: Request) {
           success: false,
           message: "Username is already taken",
         },
-        { status: 400 }
+        { status: 200 }
       );
     }
 
@@ -55,7 +56,7 @@ export async function GET(request: Request) {
         success: true,
         message: "Username is unique",
       },
-      { status: 400 }
+      { status: 200 }
     );
   } catch (error) {
     console.error("Error checking username", error);
