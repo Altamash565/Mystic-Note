@@ -26,6 +26,7 @@ import { X } from "lucide-react";
 import { toast, useSonner } from "sonner";
 import axios from "axios";
 import { Apiresponse } from "@/types/ApiResponse";
+import { Message } from "@/model/User";
 
 type MessageCardProps = {
     message: Message;
@@ -38,7 +39,7 @@ const MessageCard = ({message, onMessageDelete} : MessageCardProps) => {
     const handleDeleteConfirm = async () => {
         const response = await axios.delete<Apiresponse>(`/api/delete-message/${message._id}`)
         toast(response.data.message)
-        onMessageDelete(message._id)
+        onMessageDelete(._id);
     }
   return (
     <Card>
