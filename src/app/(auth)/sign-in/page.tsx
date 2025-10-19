@@ -96,7 +96,7 @@ const page = () => {
               )}
             />
 
-            <Button type="submit">
+            <Button className="w-full" type="submit">
               Sign In
             </Button>
           </form>
