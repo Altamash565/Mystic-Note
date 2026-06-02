@@ -28,6 +28,9 @@ const VerifyAccount = () => {
 
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
+    defaultValues: {
+      code: "",
+    },
   });
 
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
@@ -36,19 +39,17 @@ const VerifyAccount = () => {
         username: params.username,
         code: data.code,
       });
-      toast("Event has been created.", {
+      toast("Success", {
         description: response.data.message,
       });
 
-      router.replace("sign-in");
+      router.replace("/sign-in");
     } catch (error) {
-      console.error("Error in signup of user", error);
+      console.error("Error in verification of user", error);
       const axiosError = error as AxiosError<Apiresponse>;
-      let errorMessage =
-        // toast("Signup failed")
-        toast("Sign-up failed", {
-          description: axiosError.response?.data.message,
-        });
+      toast("Verification failed", {
+        description: axiosError.response?.data.message ?? "An error occurred",
+      });
     }
   };
 

@@ -17,7 +17,7 @@ export async function GET(request: Request) {
         success: false,
         message: "Not Authenticated",
       },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -36,25 +36,25 @@ export async function GET(request: Request) {
           success: false,
           message: "User not found",
         },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     return Response.json(
-            {
-              success: true,
-              messages: "user[0].messages",
-            },
-            { status: 200 }
-          );
+      {
+        success: true,
+        messages: "user[0].messages",
+      },
+      { status: 200 },
+    );
   } catch (error) {
-    console.log("An unexpected error occurred: ", error)
-     return Response.json(
-        {
-          success: false,
-          message: "Error in getting message acceptance status",
-        },
-        { status: 500 }
-      );
+    console.log("An unexpected error occurred: ", error);
+    return Response.json(
+      {
+        success: false,
+        message: "Error in getting message acceptance status",
+      },
+      { status: 500 },
+    );
   }
 }
