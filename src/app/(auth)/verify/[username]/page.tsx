@@ -1,7 +1,15 @@
-'use client'
+"use client";
 
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { verifySchema } from "@/schemas/verifySchema";
 import { Apiresponse } from "@/types/ApiResponse";
@@ -9,13 +17,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { toast, useSonner } from "sonner";
 import * as z from "zod";
 
 const VerifyAccount = () => {
-  const router = useRouter()
+  const router = useRouter();
   const params = useParams<{ username: string }>();
   const { toasts } = useSonner();
 
@@ -33,19 +40,17 @@ const VerifyAccount = () => {
         username: params.username,
         code: data.code,
       });
-      toast("Event has been created.", {
+      toast("Success", {
         description: response.data.message,
       });
 
-      router.replace("sign-in");
+      router.replace("/sign-in");
     } catch (error) {
-      console.error("Error in signup of user", error);
+      console.error("Error in verification of user", error);
       const axiosError = error as AxiosError<Apiresponse>;
-      let errorMessage =
-        // toast("Signup failed")
-        toast("Sign-up failed", {
-          description: axiosError.response?.data.message,
-        });
+      toast("Verification failed", {
+        description: axiosError.response?.data.message ?? "An error occurred",
+      });
     }
   };
 
@@ -59,24 +64,24 @@ const VerifyAccount = () => {
           <p className="mb-4">Enter the verification code sent to your email</p>
         </div>
 
-         <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          name="code"
-          control={form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Verification Code</FormLabel>
-              <FormControl>
-                <Input placeholder="code" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              name="code"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Verification Code</FormLabel>
+                  <FormControl>
+                    <Input placeholder="code" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
       </div>
     </div>
   );

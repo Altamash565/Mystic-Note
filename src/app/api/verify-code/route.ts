@@ -1,7 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
-import { z } from "zod";
-import { usernameValidation } from "@/schemas/signUpSchema";
+
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -18,7 +17,7 @@ export async function POST(request: Request) {
           success: false,
           message: "User not found",
         },
-        { status: 500 }
+        { status: 404 }
       );
     }
 
