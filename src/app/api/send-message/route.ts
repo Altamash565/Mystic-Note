@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     }
 
     //is user accepting the messages
-    if (user.isAcceptingMessage) {
+    if (!user.isAcceptingMessage) {
          return Response.json(
         {
           success: false,
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
           success: true,
           message: "message sent successfully",
         },
-        { status: 401 }
+        { status: 200 }
       );
   } catch (error) {
     console.log("Error adding messages", error)

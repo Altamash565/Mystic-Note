@@ -17,17 +17,17 @@ import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast, Toaster, useSonner } from "sonner";
+import { toast } from "sonner";
 
 const page = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setisLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
 
-  const { toasts } = useSonner();
+
 
   const handleDeleteMessage = (messageId: string) => {
-    setMessages(messages.filter((message) => message._id !== messageId));
+    setMessages(messages.filter((message) => String(message._id) !== messageId));
   };
 
   const { data: session } = useSession();
@@ -112,23 +112,25 @@ const page = () => {
     }
   };
 
-  const {username} = session?.user as User
-  //TODO: do more research
-  const baseUrl = `${window.location.protocol}//${window.location.host}`
-  const profileUrl = `${baseUrl} /u/${username}`
 
-  const copyToClipboard = () =>  { 
-    navigator.clipboard.writeText(profileUrl)
-    toast("URL copied", {
-      description: "Profile URL has been copied to clipboard"
-    })
-  }
 
 
   if (!session || !session.user) {
-    return <div>Please Login</div>
-    
+    return <div>Please Login</div>;
   }
+
+  const username = (session.user as User)?.username;
+  const baseUrl = typeof window !== 'undefined'
+    ? `${window.location.protocol}//${window.location.host}`
+    : '';
+  const profileUrl = `${baseUrl}/u/${username}`;
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(profileUrl);
+    toast("URL copied", {
+      description: "Profile URL has been copied to clipboard",
+    });
+  };
 
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
@@ -174,7 +176,7 @@ const page = () => {
           <RefreshCcw className="h-4 w-4" />
         )}
       </Button>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard

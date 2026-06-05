@@ -21,11 +21,11 @@ export async function GET(request: Request) {
     );
   }
 
-  const userId = new mongoose.Types.ObjectId(user._id);
+  const userId = new mongoose.Types.ObjectId(user._id ?? (user as any).id);
   try {
     const user = await UserModel.aggregate([
-      { $match: { id: userId } },
-      { $unwind: "messages" },
+      { $match: { _id: userId } },
+      { $unwind: "$messages" },
       { $sort: { "messages.createdAt": -1 } },
       { $group: { _id: "$_id", messages: { $push: "$messages" } } },
     ]);
@@ -43,9 +43,9 @@ export async function GET(request: Request) {
     return Response.json(
       {
         success: true,
-        messages: "user[0].messages",
+        messages: user[0].messages,
       },
-      { status: 200 },
+      { status: 200 }
     );
   } catch (error) {
     console.log("An unexpected error occurred: ", error);
