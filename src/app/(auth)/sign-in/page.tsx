@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 
-const page = () => {
+const SignInPage = () => {
   
   // toast("Event has been created.")
   const router = useRouter();
@@ -114,4 +114,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignInPage;

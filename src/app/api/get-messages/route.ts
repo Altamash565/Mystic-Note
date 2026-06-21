@@ -21,7 +21,7 @@ export async function GET(request: Request) {
     );
   }
 
-  const userId = new mongoose.Types.ObjectId(user._id ?? (user as any).id);
+  const userId = new mongoose.Types.ObjectId(user._id ?? (user as { id?: string }).id);
   try {
     const user = await UserModel.aggregate([
       { $match: { _id: userId } },

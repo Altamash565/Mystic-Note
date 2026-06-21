@@ -18,7 +18,7 @@ import { Loader2 } from "lucide-react"
 
 
 
-const page = () => {
+const SignUpPage = () => {
     const [username, setUsername] = useState('')
     const [usernameMessage, setUsernameMessage] = useState('')
     const [isCheckingUsername, setIsCheckingUsername] = useState(false)
@@ -48,7 +48,7 @@ const page = () => {
                 try {
                     const response = await axios.get(`/api/check-username-unique? username=${username}`)
                     console.log(response.data.message)
-                    let message = response.data.message
+                    const message = response.data.message
                     setUsernameMessage(message)
                 } catch (error) {
                     const axiosError = error as AxiosError<Apiresponse>;
@@ -75,7 +75,7 @@ const page = () => {
         } catch (error) {
             console.error("Error in signup of user", error)
             const axiosError = error as AxiosError<Apiresponse>;
-            let errorMessage = axiosError.response?.data.message
+            const errorMessage = axiosError.response?.data.message
             // toast("Signup failed")
             setIsSubmitting(false)
         }
@@ -170,4 +170,4 @@ const page = () => {
     )
 }
 
-export default page
+export default SignUpPage;

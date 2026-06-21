@@ -19,7 +19,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const page = () => {
+const DashboardPage = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setisLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
@@ -193,4 +193,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default DashboardPage;
