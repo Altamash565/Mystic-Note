@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="mysticGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+  </defs>
+  <!-- Stylized folded paper note -->
+  <path d="M6 10 L16 4 L26 10 L26 24 C26 26.2 24.2 28 22 28 L10 28 C7.8 28 6 26.2 6 24 Z" fill="none" stroke="url(#mysticGrad)" stroke-width="2.5" stroke-linejoin="round" />
+  <!-- Fold line -->
+  <path d="M6 10 L16 17 L26 10" fill="none" stroke="url(#mysticGrad)" stroke-width="2.5" stroke-linejoin="round" />
+  <!-- A small elegant sparkle in the center-bottom -->
+  <path d="M16 20.5 L17 22 L18.5 22.5 L17 23 L16 24.5 L15 23 L13.5 22.5 L15 22 Z" fill="#c084fc" />
+</svg>
