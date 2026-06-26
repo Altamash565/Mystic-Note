@@ -13,9 +13,10 @@ import {
 interface VerificationEmailProps {
   username: string;
   otp: string;
+  verifyUrl: string;
 }
 
-export default function VerificationEmail({ username, otp }: VerificationEmailProps) {
+export default function VerificationEmail({ username, otp, verifyUrl }: VerificationEmailProps) {
   return (
     <Html lang="en" dir="ltr">
       <Head>
@@ -50,14 +51,14 @@ export default function VerificationEmail({ username, otp }: VerificationEmailPr
             If you did not request this code, please ignore this email.
           </Text>
         </Row>
-        {/* <Row>
+        <Row>
           <Button
-            href={`http://localhost:3000/verify/${username}`}
+            href={verifyUrl}
             style={{ color: '#61dafb' }}
           >
             Verify here
           </Button>
-        </Row> */}
+        </Row>
       </Section>
     </Html>
   );

@@ -46,7 +46,7 @@ const SignUpPage = () => {
                 setIsCheckingUsername(true)
                 setUsernameMessage('')
                 try {
-                    const response = await axios.get(`/api/check-username-unique? username=${username}`)
+                    const response = await axios.get(`/api/check-username-unique?username=${username}`)
                     console.log(response.data.message)
                     const message = response.data.message
                     setUsernameMessage(message)
@@ -67,16 +67,15 @@ const SignUpPage = () => {
     const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
         setIsSubmitting(true)
         try {
-            // log the data if u want..
             const response = await axios.post<Apiresponse>('/api/sign-up', data)
-            toast("Event has been created.")
+            toast.success(response.data.message || "User registered successfully")
             router.replace(`/verify/${username}`)
             setIsSubmitting(false)
         } catch (error) {
             console.error("Error in signup of user", error)
             const axiosError = error as AxiosError<Apiresponse>;
             const errorMessage = axiosError.response?.data.message
-            // toast("Signup failed")
+            toast.error(errorMessage || "Signup failed")
             setIsSubmitting(false)
         }
     }

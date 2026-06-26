@@ -9,11 +9,14 @@ export async function sendVerificationEmail(
   verifyCode: string
 ): Promise<Apiresponse> {
   try {
+    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const verifyUrl = `${baseUrl}/verify/${username}`;
+
     await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,
       subject: 'Mystic-Note | Verification code',
-      react: VerificationEmail({username, otp: verifyCode}),
+      react: VerificationEmail({ username, otp: verifyCode, verifyUrl }),
     });
     return { success: true, message: "Verification email send successfully" };
   } catch (emailError) {
