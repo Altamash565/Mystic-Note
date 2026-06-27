@@ -47,6 +47,7 @@ export default function SendMessage() {
   } = useCompletion({
     api: "/api/suggest-messages",
     initialCompletion: initialMessageString,
+    streamProtocol: "text",
   });
 
   const form = useForm<z.infer<typeof messageSchema>>({
